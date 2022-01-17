@@ -43,62 +43,62 @@ function getProducts()
 
     res = []
     example_tea = {
-        name: "blabla",
+        name: "Black tea",
         category: "tea",
         image: "./images/tea1.jpeg",
         description: "This is some tea. It's very good, try it",
         price: 12.50
     };
     example_tea2 = {
-        name: "blabla",
+        name: "Green tea",
         category: "tea",
         image: "./images/tea2.jpeg",
         description: "This is some tea. It's very good, try it",
         price: 12.50
     };
     example_teaware = {
-        name: "blabli",
+        name: "Jianshui Clay",
         category:"teaware",
         image: './images/teaware1.jpeg',
         description : "Very robust teaware.",
         price: 150
     };
     example_teaware2 = {
-        name: "blabli",
+        name: "Gaiwan",
         category:"teaware",
         image: './images/teaware2.jpeg',
         description : "Very robust teaware.",
         price:20
     };
     example_teaware3 = {
-        name: "blabli",
+        name: "Glass pot",
         category:"teaware",
         image: './images/teaware3.jpeg',
         description : "Very robust teaware.",
         price:45.99
     };
     example_teaware4 = {
-        name: "blabli",
+        name: "Chaozhou Clay",
         category:"teaware",
         image: './images/teaware4.jpeg',
         description : "Very robust teaware.",
         price:150
     };
     example_teaware5 = {
-        name: "blabli",
+        name: "Small cup",
         category:"teaware",
         image: './images/teaware5.jpeg',
         description : "Very robust teaware.",
         price:15
     };
 
-    res['a'] = example_tea;
-    res['b'] = example_tea2;
-    res['c'] = example_teaware;
-    res['d'] = example_teaware2;
-    res['e'] = example_teaware3;
-    res['f'] = example_teaware4;
-    res['g'] = example_teaware5;
+    res['01'] = example_tea;
+    res['02'] = example_tea2;
+    res['03'] = example_teaware;
+    res['04'] = example_teaware2;
+    res['05'] = example_teaware3;
+    res['06'] = example_teaware4;
+    res['07'] = example_teaware5;
     //get products here
     return res;
 }
