@@ -1,6 +1,108 @@
+/*
+C'est la liste des produits. 
+En vrai ce serait une base de données sur laquelle on fera des requetes au moment de filtrer et d'afficher les objets
+*/
+
+product_list = {
+    '01' : {
+        name: "Black tea 2",
+        category: "tea",
+        image: "./images/tea1.jpeg",
+        description: "This is some tea. It's very good, try it",
+        price: 12.50
+    },
+    '02' : {
+        name: "Green tea",
+        category: "tea",
+        image: "./images/tea2.jpeg",
+        description: "This is some tea. It's very good, try it",
+        price: 12.50
+    },
+    '03' : {
+        name: "Oolong tea",
+        category: "tea",
+        image: "./images/tea3.jpeg",
+        description: "This is some tea. It's very good, try it",
+        price: 12.50
+    },
+    '04' : {
+        name: "Gaba tea",
+        category: "tea",
+        image: "./images/tea4.jpeg",
+        description: "This is some tea. It's very good, try it",
+        price: 12.50
+    },
+    '05' : {
+        name: "Long Jing",
+        category: "tea",
+        image: "./images/tea5.jpeg",
+        description: "This is some tea. It's very good, try it",
+        price: 12.50
+    },
+    '06' : {
+        name: "Matcha",
+        category: "tea",
+        image: "./images/tea6.jpeg",
+        description: "This is some tea. It's very good, try it",
+        price: 12.50
+    },
+    '07' : {
+        name: "Black tea",
+        category: "tea",
+        image: "./images/tea7.jpeg",
+        description: "This is some tea. It's very good, try it",
+        price: 12.50
+    },
+    '08' : {
+        name: "Jianshui Clay",
+        category:"teaware",
+        image: './images/teaware1.jpeg',
+        description : "Very robust teaware.",
+        price: 150
+    },
+    '09' : {
+        name: "Gaiwan",
+        category:"teaware",
+        image: './images/teaware2.jpeg',
+        description : "Very robust teaware.",
+        price:20
+    },
+    '10' : {
+        name: "Glass pot",
+        category:"teaware",
+        image: './images/teaware3.jpeg',
+        description : "Very robust teaware.",
+        price:45.99
+    },
+    '11' : {
+        name: "Chaozhou Clay",
+        category:"teaware",
+        image: './images/teaware4.jpeg',
+        description : "Very robust teaware.",
+        price:150
+    },
+    '12' : {
+        name: "Small cup",
+        category:"teaware",
+        image: './images/teaware5.jpeg',
+        description : "Very robust teaware.",
+        price:15
+    }
+}
+
+/*
+On s'assure que le DOM est bien chargé avant d'ajouter les events
+*/
 document.addEventListener('DOMContentLoaded', () => {
-    product_list = getProducts();
+    
+    let message_timeout;
+
+    //On récupère le panier sauvegardé de l'utilisateur et on affiche les infos correspondantes sur la page web
     update_cart();
+
+    /*
+    Le clique sur les différentes catégories (tea ou teaware) : on va alors afficher les produits filtrés avec la fonction displayproducts
+    */
     document.addEventListener('click',event => {
 
         if(event.target.matches('.product-nav'))
@@ -10,23 +112,35 @@ document.addEventListener('DOMContentLoaded', () => {
             displayProducts(document.querySelector('#product-list'),event.target.dataset.category);
         }
 
+        //Le clique sur un bouton d'achat : on va mettre à jour le panier.
         else if (event.target.matches('.add-to-cart'))
         {
+            clearTimeout(message_timeout);
+            let message_elem = document.querySelector('#message-main');
+            message_elem.style.display = '';
+            message_elem.textContent = "The item '"+event.target.dataset.product_name+"' has successfully been added to your cart";
+            message_timeout = setTimeout(()=> {message_elem.style.display='none';}, 3000);
             addQuantity(event.target,1);
             update_cart();
         }
+        
+         //Les clique dans le panier, ici sur le bouton "augmenter la quantité"
         else if(event.target.matches('.add-qty'))
         {
             const product = event.target.closest('.product-row');
             addQuantity(product,1);
             update_cart();
         }
+        
+        // Diminiuer la quantité
         else if(event.target.matches('.remove-qty'))
         {
             const product = event.target.closest('.product-row');
             addQuantity(product,-1);
             update_cart();        
         }
+
+        //Supprimer l'article du panier
         else if(event.target.matches('.delete_button'))
         {
             const ref = event.target.closest('.product-row').dataset.product_ref;
@@ -37,81 +151,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-function getProducts()
-{
 
 
-    res = []
-    example_tea = {
-        name: "Black tea",
-        category: "tea",
-        image: "./images/tea1.jpeg",
-        description: "This is some tea. It's very good, try it",
-        price: 12.50
-    };
-    example_tea2 = {
-        name: "Green tea",
-        category: "tea",
-        image: "./images/tea2.jpeg",
-        description: "This is some tea. It's very good, try it",
-        price: 12.50
-    };
-    example_teaware = {
-        name: "Jianshui Clay",
-        category:"teaware",
-        image: './images/teaware1.jpeg',
-        description : "Very robust teaware.",
-        price: 150
-    };
-    example_teaware2 = {
-        name: "Gaiwan",
-        category:"teaware",
-        image: './images/teaware2.jpeg',
-        description : "Very robust teaware.",
-        price:20
-    };
-    example_teaware3 = {
-        name: "Glass pot",
-        category:"teaware",
-        image: './images/teaware3.jpeg',
-        description : "Very robust teaware.",
-        price:45.99
-    };
-    example_teaware4 = {
-        name: "Chaozhou Clay",
-        category:"teaware",
-        image: './images/teaware4.jpeg',
-        description : "Very robust teaware.",
-        price:150
-    };
-    example_teaware5 = {
-        name: "Small cup",
-        category:"teaware",
-        image: './images/teaware5.jpeg',
-        description : "Very robust teaware.",
-        price:15
-    };
-
-    res['01'] = example_tea;
-    res['02'] = example_tea2;
-    res['03'] = example_teaware;
-    res['04'] = example_teaware2;
-    res['05'] = example_teaware3;
-    res['06'] = example_teaware4;
-    res['07'] = example_teaware5;
-    //get products here
-    return res;
-}
-
+/*
+Affichage des produits. On crée une carte pour chaque item de la catégorie
+*/
 function displayProducts(list,category)
 {
     list.innerHTML = "";
 
+    //Le filtre est effectué avec "filter"
     for(let [ref,product] of Object.entries(product_list).filter(x=>x[1].category==category))
     {
         list.innerHTML+= createCard(ref,product);
     }
 
+    //Si la liste est vide, on affiche un message indiquant que le panier est vide 
     if(list.innerHTML=="")
     {
         list.innerHTML = `<div class="alert alert-danger" role="alert">
@@ -121,6 +176,9 @@ function displayProducts(list,category)
     
 }
 
+/*
+Permet de créer une carte. Les infos du produit sont dans le dataset de l'element HTML "produit"
+*/
 function createCard(ref,product)
 {
     return  `<div class="col-sm-6 col-md-4 col-lg-3">
@@ -137,6 +195,8 @@ function createCard(ref,product)
 </div>`;
 }
 
+
+//Ajoute une quantité donnée dans le panier. Si < 0 on supprime l'item
 function addQuantity(product,qty)
 {
     let cart = JSON.parse(localStorage.getItem('cart')) || {};
@@ -158,11 +218,22 @@ function addQuantity(product,qty)
     localStorage.setItem('cart',JSON.stringify(cart));
 }
 
+//Affichage avec bootstrap de chaque ligne correspondant à chaque item du panier. On affiche le total, les boutons de controle...
 function update_cart(){
     let cart = JSON.parse(localStorage.getItem('cart')) || {};
     let cart_total = Object.entries(cart).reduce((x,y)=>x+y[1].price*y[1].quantity,0).toFixed(2).replace('.',',')+'€';
     let cart_count = Object.values(cart).reduce((x,y)=>x+y.quantity,0);
-    document.querySelector('#cart-count').textContent= cart_count;
+    let cart_count_elem = document.querySelector('#cart-count')
+    if(cart_count>0)
+    {
+        cart_count_elem.textContent= cart_count;
+        cart_count_elem.style.display='';
+    }
+    else
+    {
+        cart_count_elem.style.display='none';
+    }
+
     document.querySelector("#cart-amount").textContent = cart_total;
     let cart_body = document.querySelector('#cart-edit')
     cart_body.innerHTML = '';
@@ -192,15 +263,15 @@ function update_cart(){
                 </svg>
             </a>
         </div>
+        <div class="col-2 text-center">
+            ${(product.price*product.quantity).toFixed(2).toString().replace('.',',')+'€'}
+        </div>
         <div class="col-1 text-center">
             <a class="delete_button" href="javascript:;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill delete_button" viewBox="0 0 16 16">
-                    <path class="delete_button" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                    <path class="delete_button" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
                 </svg>
             </a>
-        </div>
-        <div class="col-2 text-center">
-            ${(product.price*product.quantity).toFixed(2).toString().replace('.',',')+'€'}
         </div>
     </div>`;
     }
@@ -214,7 +285,7 @@ function update_cart(){
     }
     else
     {
-        cart_body.innerHTML+=`<hr><div class="row p-3 justify-content-end"><div class="col-2">Total:</div><div class="col-2">${cart_total}</div></div>`;
+        cart_body.innerHTML+=`<hr><div class="row p-3 justify-content-end"><div class="col-2">Total:</div><div class="col-2">${cart_total}</div><div class="col-1"></div></div>`;
         document.querySelector('#payment').style.display = ''
 
     }

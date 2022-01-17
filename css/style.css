@@ -17,11 +17,12 @@
     text-align: center;
     color:white;
     font-weight: bolder;
+    padding:5px;
 }
 
 .delete_button:link
 {
-    color:red;
+    color:green;
 }
 
 .img-cart
@@ -29,3 +30,4 @@
     max-width: 100%;
     max-height:100%;
 }
+
