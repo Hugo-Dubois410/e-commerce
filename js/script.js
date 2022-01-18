@@ -1,11 +1,11 @@
 /*
-C'est la liste des produits. 
+C'est la liste des produits. Un dictionnaire en fait, réference : objet.
 En vrai ce serait une base de données sur laquelle on fera des requetes au moment de filtrer et d'afficher les objets
 */
 
 product_list = {
     '01' : {
-        name: "Black tea 2",
+        name: "Black tea",
         category: "tea",
         image: "./images/tea1.jpeg",
         description: "This is some tea. It's very good, try it",
@@ -47,7 +47,7 @@ product_list = {
         price: 12.50
     },
     '07' : {
-        name: "Black tea",
+        name: "Black tea 2",
         category: "tea",
         image: "./images/tea7.jpeg",
         description: "This is some tea. It's very good, try it",
@@ -159,7 +159,7 @@ Affichage des produits. On crée une carte pour chaque item de la catégorie
 function displayProducts(list,category)
 {
     list.innerHTML = "";
-
+ 
     //Le filtre est effectué avec "filter"
     for(let [ref,product] of Object.entries(product_list).filter(x=>x[1].category==category))
     {
